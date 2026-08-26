@@ -8,6 +8,8 @@ import rateLimit from 'express-rate-limit';
 import appsRouter from './routes/apps.js';
 import authRouter from './routes/auth.js';
 import App from './models/App.js';
+import User from './models/User.js';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 const app = express();
@@ -32,6 +34,19 @@ const seedIfEmpty = async () => {
   ]);
 };
 
+const seedDefaultAdmin = async () => {
+  const { DEFAULT_ADMIN_EMAIL, DEFAULT_ADMIN_PASSWORD, DEFAULT_ADMIN_NAME = 'MagicWorld Administrator' } = process.env;
+  if (!DEFAULT_ADMIN_EMAIL && !DEFAULT_ADMIN_PASSWORD) return;
+  if (!DEFAULT_ADMIN_EMAIL || !DEFAULT_ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD.length < 12) {
+    console.warn('Default admin not created: set both DEFAULT_ADMIN_EMAIL and a 12+ character DEFAULT_ADMIN_PASSWORD.');
+    return;
+  }
+  const email = DEFAULT_ADMIN_EMAIL.trim().toLowerCase();
+  if (await User.exists({ email })) return;
+  await User.create({ name: DEFAULT_ADMIN_NAME, email, passwordHash: await bcrypt.hash(DEFAULT_ADMIN_PASSWORD, 12), role: 'admin' });
+  console.log(`Created default administrator account for ${email}.`);
+};
+
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/magicworld-launcher')
-  .then(async () => { await seedIfEmpty(); app.listen(process.env.PORT || 5000, () => console.log('API running on port 5000')); })
+  .then(async () => { await seedDefaultAdmin(); await seedIfEmpty(); app.listen(process.env.PORT || 5000, () => console.log(`API running on port ${process.env.PORT || 5000}`)); })
   .catch((error) => { console.error('MongoDB connection failed:', error.message); process.exit(1); });

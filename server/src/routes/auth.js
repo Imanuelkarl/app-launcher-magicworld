@@ -11,16 +11,6 @@ const publicUser = user => ({ id: user._id, name: user.name, email: user.email, 
 const issueToken = user => jwt.sign({ sub: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '8h' });
 const validPassword = password => typeof password === 'string' && password.length >= 12;
 
-router.post('/bootstrap', async (req, res, next) => {
-  try {
-    if (await User.exists({})) return res.status(403).json({ message: 'An administrator already exists.' });
-    const { name, email, password } = req.body;
-    if (!name || !email || !validPassword(password)) return res.status(400).json({ message: 'Name, company email, and a 12-character password are required.' });
-    if (process.env.BOOTSTRAP_ADMIN_EMAIL && email.toLowerCase() !== process.env.BOOTSTRAP_ADMIN_EMAIL.toLowerCase()) return res.status(403).json({ message: 'This email is not authorized to bootstrap the system.' });
-    const user = await User.create({ name, email, passwordHash: await bcrypt.hash(password, 12), role: 'admin' });
-    res.status(201).json({ token: issueToken(user), user: publicUser(user) });
-  } catch (error) { next(error); }
-});
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email?.toLowerCase() }).select('+passwordHash');

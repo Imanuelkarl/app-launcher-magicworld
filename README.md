@@ -13,7 +13,9 @@ The API is served at `http://localhost:5000/api` and seed apps are added automat
 
 ## Secure team access
 
-Set a strong `JWT_SECRET` (32+ random characters) in `server/.env` before starting the API. On the first run, use **Create the first admin** at `/manage` with the configured `BOOTSTRAP_ADMIN_EMAIL`. After that, bootstrap is permanently disabled.
+Set a strong `JWT_SECRET` (32+ random characters) in `server/.env` before starting the API. Administrator accounts are provisioned only through the startup environment configuration or an existing administrator's invitation—there is no public bootstrap endpoint.
+
+Alternatively, set `DEFAULT_ADMIN_EMAIL`, `DEFAULT_ADMIN_PASSWORD` (12+ characters), and optionally `DEFAULT_ADMIN_NAME`. The server will create that admin at startup only if the email does not exist, and never overwrites an existing password.
 
 Roles are enforced by the API:
 
