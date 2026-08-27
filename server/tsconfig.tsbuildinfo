@@ -1,0 +1,1 @@
+{"root":["./src/mail.ts","./src/server.ts","./src/middleware/auth.ts","./src/models/app.ts","./src/models/invitation.ts","./src/models/user.ts","./src/routes/apps.ts","./src/routes/auth.ts"],"version":"5.9.3"}
