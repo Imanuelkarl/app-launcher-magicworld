@@ -1,0 +1,20 @@
+Format: 1.8
+Date: Thu, 27 Aug 2026 10:45:54 +0100
+Source: magicworld-app-hub
+Binary: magicworld-app-hub
+Architecture: all
+Version: 1.0.0
+Distribution: unknown
+Urgency: low
+Maintainer: Emmanuel Dozie <devemmanueldozie@gmail.com>
+Changed-By: Emmanuel Dozie <devemmanueldozie@gmail.com>
+Description:
+ magicworld-app-hub - Magic World App Launcher
+Changes:
+ magicworld-app-hub (1.0.0) unknown; urgency=low
+Checksums-Sha1:
+ f0b5d5ea85d968d4693c4e58280d601c8fc7e812 400340 applauncher_1_all.deb
+Checksums-Sha256:
+ 50b22c6690fad70968a95e3dee9ff77f43427a582f1c42ae61eb76caea56d380 400340 applauncher_1_all.deb
+Files:
+ 9d81f1241ac0fd9cb92f1501a2545b2c 400340 utils optional applauncher_1_all.deb
