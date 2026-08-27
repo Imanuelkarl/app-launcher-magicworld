@@ -12,11 +12,17 @@ const request = async <T>(path: string, init: RequestInit = {}): Promise<T> => {
     },
   });
   const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.message || "Request failed");
+  if (!response.ok) {
+    const error = new Error(body.message || "Request failed") as Error & {
+      inviteUrl?: string;
+    };
+    error.inviteUrl = body.inviteUrl;
+    throw error;
+  }
   return body as T;
 };
 export const api = {
-  apps: () => request<LauncherApp[]>("/api/apps?status=all"),
+  apps: () => request<LauncherApp[]>("/api/apps/mine"),
   publicApps: () => request<LauncherApp[]>("/api/apps"),
   login: (email: string, password: string) =>
     request<{ token: string; user: User }>("/api/auth/login", {
@@ -32,8 +38,20 @@ export const api = {
   deleteApp: (id: string) =>
     request<void>(`/api/apps/${id}`, { method: "DELETE" }),
   users: () => request<User[]>("/api/auth/users"),
+  updateUser: (
+    id: string,
+    update: Partial<Pick<User, "name" | "email" | "role" | "active">>,
+  ) =>
+    request<User>(`/api/auth/users/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(update),
+    }),
+  resetPassword: (id: string) =>
+    request<{ message: string }>(`/api/auth/users/${id}/reset-password`, {
+      method: "POST",
+    }),
   invite: (email: string, role: string) =>
-    request<{ message: string; expiresInDays: number }>(
+    request<{ message: string; inviteUrl: string; expiresInDays: number }>(
       "/api/auth/invitations",
       { method: "POST", body: JSON.stringify({ email, role }) },
     ),

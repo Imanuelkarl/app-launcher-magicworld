@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import Invitation from "../models/Invitation.js";
 import { allowRoles, requireAuth } from "../middleware/auth.js";
-import { sendInvitationEmail } from "../mail.js";
+import { sendInvitationEmail, sendPasswordResetEmail } from "../mail.js";
 const router = Router();
 const publicUser = (u: any) => ({
   id: u._id,
@@ -20,6 +20,10 @@ const token = (u: any) =>
   });
 const goodPassword = (p: unknown): p is string =>
   typeof p === "string" && p.length >= 12;
+const inviteUrl = (raw: string) =>
+  `${process.env.CLIENT_URL || process.env.FRONTEND_URL || "http://localhost:5173"}/accept-invite?token=${encodeURIComponent(raw)}`;
+const temporaryPassword = () =>
+  `${crypto.randomBytes(9).toString("base64url")}A1!`;
 router.post("/login", async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -56,6 +60,18 @@ router.patch(
   async (req, res, next) => {
     try {
       const update: Record<string, unknown> = {};
+      if (typeof req.body.name === "string" && req.body.name.trim())
+        update.name = req.body.name.trim();
+      if (typeof req.body.email === "string" && req.body.email.trim()) {
+        const email = req.body.email.trim().toLowerCase();
+        if (!/^\S+@\S+\.\S+$/.test(email))
+          return res.status(400).json({ message: "Provide a valid email." });
+        if (await User.exists({ email, _id: { $ne: req.params.id } }))
+          return res
+            .status(409)
+            .json({ message: "This email is already in use." });
+        update.email = email;
+      }
       if (["admin", "editor", "viewer"].includes(req.body.role))
         update.role = req.body.role;
       if (typeof req.body.active === "boolean") update.active = req.body.active;
@@ -105,16 +121,46 @@ router.post(
           "Invitation email failed:",
           error instanceof Error ? error.message : error,
         );
-        return res
-          .status(502)
-          .json({
-            message:
-              "The invitation was created, but the email could not be sent.",
-          });
+        return res.status(502).json({
+          message:
+            "The invitation was created, but the email could not be sent.",
+          inviteUrl: inviteUrl(raw),
+        });
       }
-      res
-        .status(201)
-        .json({ message: "Invitation email sent.", expiresInDays: 7 });
+      res.status(201).json({
+        message: "Invitation email sent.",
+        inviteUrl: inviteUrl(raw),
+        expiresInDays: 7,
+      });
+    } catch (e) {
+      next(e);
+    }
+  },
+);
+router.post(
+  "/users/:id/reset-password",
+  requireAuth,
+  allowRoles("admin"),
+  async (req, res, next) => {
+    try {
+      const user = await User.findById(req.params.id).select("+passwordHash");
+      if (!user) return res.status(404).json({ message: "User not found." });
+      const password = temporaryPassword();
+      user.passwordHash = await bcrypt.hash(password, 12);
+      await user.save();
+      try {
+        await sendPasswordResetEmail(user.email, user.name, password);
+      } catch (error) {
+        console.error(
+          "Password reset email failed:",
+          error instanceof Error ? error.message : error,
+        );
+        return res.status(502).json({
+          message:
+            "The password was reset, but the notification email could not be sent.",
+        });
+      }
+      res.json({ message: "Temporary password sent to the user by email." });
     } catch (e) {
       next(e);
     }

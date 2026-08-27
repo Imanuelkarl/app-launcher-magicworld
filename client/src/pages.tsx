@@ -412,12 +412,14 @@ export function Dashboard({
                       {app.category} · v{app.latestVersion}
                     </small>
                   </div>
-                  <button
-                    className="btn-subtle !px-3 !py-2 text-xs"
-                    onClick={() => setEdit(app)}
-                  >
-                    Edit
-                  </button>
+                  {(user.role === "admin" || app.createdBy === user.id) && (
+                    <button
+                      className="btn-subtle !px-3 !py-2 text-xs"
+                      onClick={() => setEdit(app)}
+                    >
+                      Edit
+                    </button>
+                  )}
                   {user.role === "admin" && (
                     <button
                       className="text-xs font-bold text-rose-600"
@@ -445,7 +447,9 @@ export function Team({
   const [people, setPeople] = useState<User[]>([]),
     [email, setEmail] = useState(""),
     [role, setRole] = useState("editor"),
-    [message, setMessage] = useState("");
+    [message, setMessage] = useState(""),
+    [inviteLink, setInviteLink] = useState(""),
+    [editing, setEditing] = useState<User | null>(null);
   const navigate = useNavigate();
   const load = () =>
     api
@@ -479,9 +483,13 @@ export function Team({
               try {
                 const r = await api.invite(email, role);
                 setMessage(r.message);
+                setInviteLink(r.inviteUrl);
                 setEmail("");
               } catch (err) {
                 setMessage((err as Error).message);
+                setInviteLink(
+                  (err as Error & { inviteUrl?: string }).inviteUrl || "",
+                );
               }
             }}
           >
@@ -510,20 +518,130 @@ export function Team({
             {message && (
               <p className="mt-4 break-all text-sm text-slate-600">{message}</p>
             )}
+            {inviteLink && (
+              <a
+                className="mt-2 block break-all text-sm font-bold text-magic underline"
+                href={inviteLink}
+              >
+                Manual activation link
+              </a>
+            )}
           </form>
           <div className="panel p-6">
             <h2 className="text-lg font-extrabold">Company users</h2>
             {people.map((p) => (
-              <div className="mt-4 flex items-center gap-3" key={p.id}>
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-mist font-bold text-magic">
-                  {p.name[0]}
-                </div>
-                <div>
-                  <strong className="block text-sm">{p.name}</strong>
-                  <small className="text-slate-500">
-                    {p.email} · {p.role}
-                  </small>
-                </div>
+              <div
+                className="mt-4 rounded-xl border border-violet-100 p-3"
+                key={p.id}
+              >
+                {editing?.id === p.id ? (
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <input
+                      value={editing.name}
+                      onChange={(e) =>
+                        setEditing({ ...editing, name: e.target.value })
+                      }
+                    />
+                    <input
+                      type="email"
+                      value={editing.email}
+                      onChange={(e) =>
+                        setEditing({ ...editing, email: e.target.value })
+                      }
+                    />
+                    <select
+                      value={editing.role}
+                      onChange={(e) =>
+                        setEditing({
+                          ...editing,
+                          role: e.target.value as User["role"],
+                        })
+                      }
+                    >
+                      <option value="viewer">Viewer</option>
+                      <option value="editor">Editor</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                    <div className="flex gap-2">
+                      <button
+                        className="btn-primary !px-3 !py-2 text-xs"
+                        onClick={() =>
+                          api
+                            .updateUser(p.id, {
+                              name: editing.name,
+                              email: editing.email,
+                              role: editing.role,
+                            })
+                            .then((updated) => {
+                              setPeople(
+                                people.map((person) =>
+                                  person.id === updated.id ? updated : person,
+                                ),
+                              );
+                              setEditing(null);
+                              setMessage("User updated.");
+                            })
+                            .catch((e) => setMessage((e as Error).message))
+                        }
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="btn-subtle !px-3 !py-2 text-xs"
+                        onClick={() => setEditing(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="grid h-9 w-9 place-items-center rounded-full bg-mist font-bold text-magic">
+                      {p.name[0]}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <strong className="block text-sm">{p.name}</strong>
+                      <small className="text-slate-500">
+                        {p.email} · {p.role} ·{" "}
+                        {p.active ? "Active" : "Inactive"}
+                      </small>
+                    </div>
+                    <button
+                      className="btn-subtle !px-3 !py-2 text-xs"
+                      onClick={() => setEditing(p)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-xs font-bold text-magic"
+                      onClick={() =>
+                        api
+                          .updateUser(p.id, { active: !p.active })
+                          .then((updated) =>
+                            setPeople(
+                              people.map((person) =>
+                                person.id === updated.id ? updated : person,
+                              ),
+                            ),
+                          )
+                          .catch((e) => setMessage((e as Error).message))
+                      }
+                    >
+                      {p.active ? "Deactivate" : "Activate"}
+                    </button>
+                    <button
+                      className="text-xs font-bold text-rose-600"
+                      onClick={() =>
+                        api
+                          .resetPassword(p.id)
+                          .then((result) => setMessage(result.message))
+                          .catch((e) => setMessage((e as Error).message))
+                      }
+                    >
+                      Reset password
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
