@@ -57,3 +57,63 @@ Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
 Launcher args:	-jar "C:\Users\IMMANUEL\Documents\MERN Stack\app-launcher-magicworld\client\public\downloads\appLauncher.exe"
 Args length:	109/32768 chars
 Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\IMMANUEL\Documents\MERN Stack\app-launcher-magicworld\client\public\downloads\appLauncher.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\IMMANUEL\Documents\MERN Stack\app-launcher-magicworld\client\public\downloads\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.000.004
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Python38\Scripts\;C:\Program Files\Python38\;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\PuTTY\;C:\Program Files\Amazon\AWSCLI\bin\;C:\Users\IMMANUEL\AppData\Roaming\Python\Python313\Scripts;C:\Users\IMMANUEL\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\IMMANUEL\Downloads\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\bin;C:\Program Files\MongoDB\Server\8.0\bin;C:\Users\IMMANUEL\AppData\Local\Android\Sdk\platform-tools;C:\Users\IMMANUEL\AppData\Local\Android\Sdk\emulator;C:\Program Files\Oracle\VirtualBox;C:\Program Files\nodejs\;C:\Users\IMMANUEL\.config\herd-lite\bin;C:\Users\IMMANUEL\.config\herd\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\IMMANUEL\AppData\Local\Programs\Python\Launcher\;C:\Users\IMMANUEL\AppData\Local\Microsoft\WindowsApps;C:\Users\IMMANUEL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\IMMANUEL\.dotnet\tools;C:\Program Files\JetBrains\WebStorm 2025.1.2\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.2\bin;;C:\Users\IMMANUEL\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files\Multipass\bin;C:\Users\IMMANUEL\AppData\Roaming\npm;C:\Program Files\Java\jdk-23\bin
+JRE paths:	;C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Python38\Scripts\;C:\Program Files\Python38\;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\PuTTY\;C:\Program Files\Amazon\AWSCLI\bin\;C:\Users\IMMANUEL\AppData\Roaming\Python\Python313\Scripts;C:\Users\IMMANUEL\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\IMMANUEL\Downloads\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\bin;C:\Program Files\MongoDB\Server\8.0\bin;C:\Users\IMMANUEL\AppData\Local\Android\Sdk\platform-tools;C:\Users\IMMANUEL\AppData\Local\Android\Sdk\emulator;C:\Program Files\Oracle\VirtualBox;C:\Program Files\nodejs\;C:\Users\IMMANUEL\.config\herd-lite\bin;C:\Users\IMMANUEL\.config\herd\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\IMMANUEL\AppData\Local\Programs\Python\Launcher\;C:\Users\IMMANUEL\AppData\Local\Microsoft\WindowsApps;C:\Users\IMMANUEL\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\IMMANUEL\.dotnet\tools;C:\Program Files\JetBrains\WebStorm 2025.1.2\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.2\bin;;C:\Users\IMMANUEL\AppData\Local\Programs\cursor\resources\app\bin;C:\Program Files\Multipass\bin;C:\Users\IMMANUEL\AppData\Roaming\npm;C:\Program Files\Java\jdk-23\bin
+Check launcher:	C:\Python313\Scripts\bin\javaw.exe (not found)
+Check launcher:	C:\Python313\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Python38\Scripts\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Python38\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Common Files\Oracle\Java\javapath\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\system32\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\Wbem\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\WindowsPowerShell\v1.0\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\OpenSSH\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Git\cmd\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\dotnet\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\PuTTY\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Amazon\AWSCLI\bin\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Roaming\Python\Python313\Scripts\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\flutter\bin\javaw.exe (not found)
+Check launcher:	C:\ProgramData\chocolatey\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Docker\Docker\resources\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\Downloads\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\ffmpeg-2025-10-05-git-6231fa7fb7-full_build\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\MongoDB\Server\8.0\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Android\Sdk\platform-tools\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Android\Sdk\emulator\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Oracle\VirtualBox\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\nodejs\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\.config\herd-lite\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\.config\herd\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\MySQL\MySQL Shell 8.0\bin\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Programs\Python\Launcher\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Microsoft\WindowsApps\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Programs\Microsoft VS Code\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\.dotnet\tools\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\JetBrains\WebStorm 2025.1.2\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2025.1.2\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Local\Programs\cursor\resources\app\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Multipass\bin\javaw.exe (not found)
+Check launcher:	C:\Users\IMMANUEL\AppData\Roaming\npm\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Version string: 1.023.000_002 / 64-Bit (OK)
+Set var:	api.baseUrl = https://magic-world-app-hub.vercel.app
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	-jar "C:\Users\IMMANUEL\Documents\MERN Stack\app-launcher-magicworld\client\public\downloads\appLauncher.exe"
+Args length:	109/32768 chars
+Exit code:	0
